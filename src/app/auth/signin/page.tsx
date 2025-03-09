@@ -71,7 +71,7 @@ const SignIn: React.FC = () => {
             <Flex justify="center">
               <p style={{ fontSize: 12 }}>
                 Don&apos;t have an account?{""}
-                <Link href={"/signup"}>Register an account.</Link>
+                <Link href={"/auth/signup"}> Register an account.</Link>
               </p>
             </Flex>
           </Form.Item>

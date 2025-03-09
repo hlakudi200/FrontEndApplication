@@ -52,6 +52,10 @@ export default function RootLayout({
             Carousel: {
               dotHeight: 12,
             },
+            Select: {
+              controlHeight: 49,
+              borderRadius: 15,
+            }
           },
           algorithm: darkAlgorithm,
         }}
