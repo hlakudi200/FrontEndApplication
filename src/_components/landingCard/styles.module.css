@@ -1,0 +1,68 @@
+.cardContainer {
+  height: 21vw;
+  border: 2px solid #ee202036;
+  box-shadow: inset 0 -75px 4px #0404049e;
+  border-radius: 40px;
+  margin-top: 17px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.cardContainer:hover {
+  box-shadow: inset 0 -320px 4px #0202029e;
+  transform: translateY(-6);
+}
+.arrowLink {
+  align-self: flex-end;
+  justify-self: flex-end;
+  position: absolute;
+  right: 53px;
+  bottom: 25px;
+}
+.arrowLink:hover {
+  transition-delay: 2ms;
+}
+.cardTitle {
+  font-style: normal;
+  font-weight: lighter;
+}
+
+.cardLink {
+  color: aliceblue;
+  width: 40%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.cardIcon{
+    font-size: 30px;
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  .cardLink {
+    color: aliceblue;
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+  .cardContainer {
+    height: 55vw;
+    border: 2px solid #ee202036;
+    box-shadow: inset 0 -75px 4px #0404049e;
+    border-radius: 40px;
+   
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+}

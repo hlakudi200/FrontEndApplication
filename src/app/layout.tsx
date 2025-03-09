@@ -4,6 +4,7 @@ import ToastProvider from "@/providers/ToastProvider/toast";
 import "./globals.css";
 import { ConfigProvider, theme } from "antd";
 import React from "react";
+import CustomFooter from "@/_components/footer/footer";
 
 export default function RootLayout({
   children,
@@ -61,7 +62,9 @@ export default function RootLayout({
         }}
       >
         <ToastProvider/>
-        <body>{children}</body>
+        <body>{children}
+          <CustomFooter/>
+        </body>
       </ConfigProvider>
     </html>
   );
