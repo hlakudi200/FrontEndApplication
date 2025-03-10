@@ -6,12 +6,21 @@ import React, { useState } from "react";
 import styles from "./styles.module.css";
 import { toast } from "@/providers/ToastProvider/toast";
 import Image from "next/image";
+import { IUser } from "@/providers/usersprovider/models";
+import { useUserActions, useUserSate } from "@/providers/usersprovider";
+
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn } = useUserActions();
 
-  const handleClick = () => {
-    toast("successful", "success");
+  const handleSingIn = async () => {
+    await signIn(email, password)
+      .then(() => {
+        toast("successful", "success");
+      
+      })
+      .catch((error) => toast("error", error));
   };
 
   return (
@@ -62,7 +71,7 @@ const SignIn: React.FC = () => {
           </Form.Item>
           <Form.Item>
             <Flex justify="center">
-              <Button type="primary" onClick={handleClick}>
+              <Button type="primary" onClick={handleSingIn}>
                 Sign In
               </Button>
             </Flex>
