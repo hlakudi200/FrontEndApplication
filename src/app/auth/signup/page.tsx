@@ -23,7 +23,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const { signUp } = useUserActions();
 
-  const handleSignUp = async (values: any) => {
+  const handleSignUp = async (values: IUser) => {
     setLoading(true);
     try {
       const userPayload: IUser = {
@@ -44,7 +44,7 @@ const SignUp = () => {
 
       await signUp(userPayload);
       toast("Signup successful!", "success");
-    } catch (error) {
+    } catch {
       toast("Signup failed. Please try again.", "error");
     }
     setLoading(false);
@@ -66,7 +66,7 @@ const SignUp = () => {
         return toast("Password needs 8 or more characters", "error");
       }
       setCurrentStep(2);
-    } catch (error) {
+    } catch {
       toast("Please fill all required fields correctly", "error");
     }
   };

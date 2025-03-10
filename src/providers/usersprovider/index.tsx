@@ -46,7 +46,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         dispatch(getCurrentUserError());
       }
-    } catch (error) {
+    } catch {
       dispatch(getCurrentUserError());
     }
   };
@@ -65,7 +65,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
         trainerId: user.trainerId,
       }));
       dispatch(getClientsSuccess(filteredData));
-    } catch (error) {
+    } catch  {
       dispatch(getClientsError());
     }
   };
@@ -79,7 +79,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(token);
       localStorage.setItem("token", token);
       dispatch(signInSuccess(token));
-    } catch (error) {
+    } catch  {
       dispatch(signInError());
     }
   };
@@ -90,7 +90,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       await instance.post(endpoint, user);
       dispatch(signUpSuccess(user));
-    } catch (error) {
+    } catch  {
       dispatch(signUpError());
     }
   };
@@ -100,7 +100,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       dispatch(signOutPending());
       localStorage.removeItem("token");
       dispatch(signOutSuccess());
-    } catch (error) {
+    } catch  {
       dispatch(signOutError());
     }
   };
