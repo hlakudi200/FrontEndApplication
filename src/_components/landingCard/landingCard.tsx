@@ -12,7 +12,7 @@ interface ICardDetails {
 }
 const LandingCard = (cardDetails: ICardDetails) => {
   return (
-    <Link href={cardDetails.src} className={styles.cardLink}>
+    <Link href={cardDetails.route} className={styles.cardLink}>
       <div
         className={styles.cardContainer}
         style={{ backgroundImage: `url('${cardDetails.src}')` }}

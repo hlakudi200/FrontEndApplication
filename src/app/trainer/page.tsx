@@ -10,7 +10,7 @@ const Landing= () => {
   const cardData = [
     {
       title: "Manage Clients.",
-      route: "",
+      route: "/trainer/dashboard",
       src: "/images/Tab1.jpg",
     },
     {
