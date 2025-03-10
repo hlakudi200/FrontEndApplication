@@ -18,6 +18,7 @@ import {
   signOutError,
   getCurrentUserPending,
   getCurrentUserSuccess,
+  getCurrentUserError,
 } from "./actions";
 
 export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,75 +28,71 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
   const getCurrentUser = async () => {
     dispatch(getCurrentUserPending());
     const endpoint = `user/current`;
-    await instance
-      .get(endpoint)
-      .then((reponse) => {
-        dispatch(getCurrentUserSuccess(reponse.data));
-      })
-      .catch((error) => {
-        throw error;
-      });
+    try {
+      const response = await instance.get(endpoint);
+      if (response.status === 200 && response.data) {
+        const userData: IUser = {
+          _id: response.data.data.id,
+          name: response.data.data.name,
+          email: response.data.data.email,
+          role: response.data.data.role,
+          contactNumber: response.data.data.contactNumber,
+          activeState: response.data.data.activeState,
+          planType: response.data.data.planType,
+          trial: response.data.data.trial,
+          date: response.data.data.date,
+        };
+        dispatch(getCurrentUserSuccess(userData));
+      } else {
+        dispatch(getCurrentUserError());
+      }
+    } catch (error) {
+      dispatch(getCurrentUserError());
+    }
   };
+
   const getClients = async (idTrainer: string) => {
     dispatch(getClientsPending());
-    const endpoint = `client/trainer/${idTrainer}/clients`;
-    await instance
-      .get(endpoint)
-      .then((response) => {
-        const filteredData = response.data.map((user) => ({
-          name: user.fullName,
-          email: user.email,
-          contactNumber: user.contactNumber,
-          dateOfBirth: user.dateOfBirth,
-          sex: user.sex,
-        }));
-        dispatch(getClientsSuccess(filteredData));
-      })
-      .catch((error) => {
-        dispatch(getClientsError());
-        throw error;
-      });
+    const endpoint = `client/trainer/${idTrainer}/clients;`;
+    try {
+      const response = await instance.get(endpoint);
+      const filteredData = response.data.map((user: IUser) => ({
+        name: user.name,
+        email: user.email,
+        contactNumber: user.contactNumber,
+        dateOfBirth: user.dateOfBirth,
+        sex: user.sex,
+        trainerId: user.trainerId,
+      }));
+      dispatch(getClientsSuccess(filteredData));
+    } catch (error) {
+      dispatch(getClientsError());
+    }
   };
 
   const signIn = async (email: string, password: string) => {
     dispatch(signInPending());
     const endpoint = `users/login`;
-
-    await instance
-      .post(endpoint, {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        dispatch(signInSuccess(response.data.token));
-        console.log(response.data)
-        localStorage.setItem("token", response.data.token);
-      })
-      .catch((error) => {
-        dispatch(signInError());
-        throw error;
-      });
+    try {
+      const response = await instance.post(endpoint, { email, password });
+      const token = response.data.data.token;
+      console.log(token);
+      localStorage.setItem("token", token);
+      dispatch(signInSuccess(token));
+    } catch (error) {
+      dispatch(signInError());
+    }
   };
 
   const signUp = async (user: IUser) => {
     dispatch(signUpPending());
-    const endpointTrainer = `users/register`;
-    const endpointClient = `users/register/mobile`;
-    user == null
-      ? singUpHelper(endpointClient, user)
-      : singUpHelper(endpointTrainer, user);
-  };
-
-  const singUpHelper = async (endPoint: string, user: IUser) => {
-    await instance
-      .post(endPoint, user)
-      .then((response) => {
-        dispatch(signUpSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(signUpError());
-        throw error;
-      });
+    const endpoint = user.role ? `users/register` : `users/register/mobile;`;
+    try {
+      await instance.post(endpoint, user);
+      dispatch(signUpSuccess(user));
+    } catch (error) {
+      dispatch(signUpError());
+    }
   };
 
   const signOut = () => {
@@ -108,27 +105,29 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  return(
+  return (
     <UserStateContext.Provider value={state}>
-        <UserActionContext.Provider value={{getClients,getCurrentUser,signIn,signUp,signOut}}>
-             {children}
-        </UserActionContext.Provider>
+      <UserActionContext.Provider
+        value={{ getClients, getCurrentUser, signIn, signUp, signOut }}
+      >
+        {children}
+      </UserActionContext.Provider>
     </UserStateContext.Provider>
-  )
+  );
 };
 
-export const useUserSate=()=>{
-    const context=useContext(UserStateContext);
-    if(!context){
-        throw new Error('useUserState must be used within a userProvider');
-    }
-    return context;
-}
+export const useUserSate = () => {
+  const context = useContext(UserStateContext);
+  if (!context) {
+    throw new Error("useUserState must be used within a UsersProvider");
+  }
+  return context;
+};
 
-export const useUserActions=()=>{
-    const context=useContext(UserActionContext);
-    if(!context){
-        throw new Error('useUserActions must be used within a userProvider');
-    }
-    return context;
-}
+export const useUserActions = () => {
+  const context = useContext(UserActionContext);
+  if (!context) {
+    throw new Error("useUserActions must be used within a UsersProvider");
+  }
+  return context;
+};

@@ -30,17 +30,17 @@ export interface IUser {
     email: string;
     password?: string;
     confirmPassword?: string;
-    role?: string;  //if role is null that means he is a Client 
+    role?: string;  
     contactNumber: string;
     planType?: string;
     activeState?: boolean;
     trial?: boolean;
-    dateOfBirth: string;
+    dateOfBirth?: string;
     policiesAccepted?: boolean;
-    trainerId: string;
+    trainerId?: string;
     token?: string;
     sex?: string;
-    date:string;
+    date?:string;
     __v?:string;
 }
 

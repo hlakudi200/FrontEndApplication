@@ -1,24 +1,26 @@
 "use client";
-import { Button, Flex, Form, Input } from "antd";
+import { Button, Flex, Form, Input, Spin } from "antd";
 import { MailFilled } from "@ant-design/icons";
 import Link from "next/link";
 import React, { useState } from "react";
 import styles from "./styles.module.css";
 import { toast } from "@/providers/ToastProvider/toast";
 import Image from "next/image";
-import { IUser } from "@/providers/usersprovider/models";
 import { useUserActions, useUserSate } from "@/providers/usersprovider";
+import { useRouter } from "next/navigation";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useUserActions();
+  const { isPending } = useUserSate();
+  const router = useRouter();
 
   const handleSingIn = async () => {
     await signIn(email, password)
       .then(() => {
         toast("successful", "success");
-      
+        router.push("/client");
       })
       .catch((error) => toast("error", error));
   };
@@ -53,6 +55,11 @@ const SignIn: React.FC = () => {
         <h1 style={{ fontSize: 50, marginBottom: 20 }}>
           Sign <span style={{ color: "Red" }}>In.</span>
         </h1>
+        {isPending && (
+          <Flex justify="center" style={{ marginBottom: 20 }}>
+            <Spin size="large" />
+          </Flex>
+        )}
         <Form className={styles.loginForm}>
           <Form.Item name="email" rules={[{ required: true }]}>
             <Input
@@ -62,7 +69,7 @@ const SignIn: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item rules={[{ required: true }]}>
             <Input.Password
               placeholder="Password"
               value={password}

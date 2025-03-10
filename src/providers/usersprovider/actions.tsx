@@ -26,7 +26,7 @@ export enum UserActionsEnum {
 
 //GET CURRENT USER ACTIONS
 export const getCurrentUserPending = createAction<IUserStateContext>(
-  UserActionsEnum.getClientsPending,
+  UserActionsEnum.getCurrentUserPending,
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 export const getCurrentUserSuccess = createAction<IUserStateContext, IUser>(
@@ -102,7 +102,7 @@ export const signUpSuccess = createAction<IUserStateContext, IUser>(
 );
 
 export const signUpError = createAction<IUserStateContext>(
-  UserActionsEnum.signOutError,
+  UserActionsEnum.signUpError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
 
