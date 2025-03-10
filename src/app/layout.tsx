@@ -5,13 +5,14 @@ import "./globals.css";
 import { ConfigProvider, theme } from "antd";
 import React from "react";
 import CustomFooter from "@/_components/footer/footer";
+import { UsersProvider } from "../providers/usersprovider";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { darkAlgorithm } = theme; 
+  const { darkAlgorithm } = theme;
 
   return (
     <html lang="en">
@@ -39,7 +40,7 @@ export default function RootLayout({
               controlHeight: 48,
               lineWidth: 2,
               borderRadius: 15,
-              activeBg: "rgb(33,32,32)"
+              activeBg: "rgb(33,32,32)",
             },
             Layout: {
               headerHeight: 55,
@@ -56,15 +57,18 @@ export default function RootLayout({
             Select: {
               controlHeight: 49,
               borderRadius: 15,
-            }
+            },
           },
           algorithm: darkAlgorithm,
         }}
       >
-        <ToastProvider/>
-        <body>{children}
-          <CustomFooter/>
-        </body>
+        <ToastProvider />
+        <UsersProvider>
+          <body>
+            {children}
+            <CustomFooter />
+          </body>
+        </UsersProvider>
       </ConfigProvider>
     </html>
   );
