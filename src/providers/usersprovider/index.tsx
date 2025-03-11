@@ -78,7 +78,6 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await instance.post(endpoint, { email, password });
       const token = response.data.data.token;
-      console.log(token);
       localStorage.setItem("token", token);
       dispatch(signInSuccess(token));
     } catch  {
@@ -110,7 +109,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <UserStateContext.Provider value={state}>
       <UserActionContext.Provider
-        value={{ getClients, getCurrentUser, signIn, signUp, signOut }}
+        value={{getClients, getCurrentUser, signIn, signUp, signOut }}
       >
         {children}
       </UserActionContext.Provider>

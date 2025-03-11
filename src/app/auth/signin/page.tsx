@@ -2,7 +2,7 @@
 import { Button, Flex, Form, Input, Spin } from "antd";
 import { MailFilled } from "@ant-design/icons";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { toast } from "@/providers/ToastProvider/toast";
 import Image from "next/image";
@@ -15,12 +15,15 @@ const SignIn: React.FC = () => {
   const { signIn } = useUserActions();
   const { isPending } = useUserSate();
   const router = useRouter();
-
+   
+  useEffect(()=>{
+    
+  })
   const handleSingIn = async () => {
     try {
       await signIn(email, password);
-      toast("successful", "success");
-      router.push("/client");
+      toast("successful", "success")
+      router.push('/trainer')
     } catch (error) {
       console.error("SignIn Error:", error); 
       toast("error", error.response?.data?.message || "An error occurred");

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import styles from './styles.module.css'
 import ClientCard from '@/_components/client-card/client-card';
@@ -28,4 +29,4 @@ function TrainerDashBoard() {
   )
 }
 
-export default withAuth(TrainerDashBoard,{allowedRoles:['admin','client']});
+export default withAuth(TrainerDashBoard,{allowedRoles:['admin']});

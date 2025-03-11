@@ -13,6 +13,7 @@ import Image from "next/image";
 import { toast } from "@/providers/ToastProvider/toast";
 import { useUserActions } from "../../../providers/usersprovider";
 import { IUser } from "../../../providers/usersprovider/models";
+import { useRouter } from "next/navigation";
 
 const { Option } = Select;
 
@@ -21,7 +22,8 @@ const SignUp = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const { signUp } = useUserActions();
-
+  const router = useRouter();
+ 
   const handleSignUp = async (values: any) => {
     setLoading(true);
     try {
@@ -54,10 +56,9 @@ const SignUp = () => {
         setLoading(false);
         return;
       }
-
-      console.log("User Payload:", userPayload);
       await signUp(userPayload);
       toast("Signup successful!", "success");
+      router.push("/auth/signin");
     } catch (error) {
       console.error("Signup Error:", error);
       toast("Signup failed. Please try again.", "error");
@@ -206,7 +207,7 @@ const SignUp = () => {
               ]}
             >
               <DatePicker
-                style={{ width: "100%",borderRadius:15,height:49}} 
+                style={{ width: "100%", borderRadius: 15, height: 49 }}
                 placeholder="Select Date of Birth"
                 format="YYYY-MM-DD"
               />

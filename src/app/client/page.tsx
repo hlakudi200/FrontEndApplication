@@ -1,9 +1,11 @@
+'use client'
+import withAuth from '@/hoc/withAuth';
 import React from 'react'
 
-function page() {
+const ClinetHome=()=> {
   return (
-    <div>Client Page</div>
+    <div>Client Side</div>
   )
 }
 
-export default page
+export default withAuth(ClinetHome,{allowedRoles:['client']});

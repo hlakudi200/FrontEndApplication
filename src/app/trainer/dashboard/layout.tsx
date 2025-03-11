@@ -1,3 +1,5 @@
+
+'use client'
 import React from 'react'
 import styles from './styles.module.css'
 import ClientCard from '@/_components/client-card/client-card';
@@ -28,4 +30,4 @@ const DasboardLayout=()=> {
   )
 }
 
-export default withAuth(DasboardLayout,{allowedRoles:['admin','client']});
+export default withAuth(DasboardLayout,{allowedRoles:['admin']});

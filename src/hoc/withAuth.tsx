@@ -34,8 +34,7 @@ const withAuth = (
           router.replace("/");
         } else if (isSuccess && user?.role) {
           if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-            console.log("log in for loop");
-            console.log(user.role)
+            console.log("This is our Role:",user.role)
             router.replace(user.role === "admin" ? "/trainer" : "/client");
           }
         }

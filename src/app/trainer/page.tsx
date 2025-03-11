@@ -50,4 +50,4 @@ const Landing= () => {
   );
 };
 
-export default withAuth(Landing,{allowedRoles:['admin','client']});
+export default withAuth(Landing,{allowedRoles:['admin']});
