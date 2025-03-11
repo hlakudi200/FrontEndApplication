@@ -5,6 +5,7 @@ import LandingCard from "@/_components/landingCard/landingCard";
 import styles from "./styles.module.css";
 import CustomHeader from "@/_components/header/header";
 import { LogoutOutlined } from "@ant-design/icons";
+import withAuth from "@/hoc/withAuth";
 
 const Landing= () => {
   const cardData = [
@@ -49,4 +50,4 @@ const Landing= () => {
   );
 };
 
-export default Landing;
+export default withAuth(Landing,{allowedRoles:['admin','client']});

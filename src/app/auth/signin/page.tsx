@@ -17,12 +17,14 @@ const SignIn: React.FC = () => {
   const router = useRouter();
 
   const handleSingIn = async () => {
-    await signIn(email, password)
-      .then(() => {
-        toast("successful", "success");
-        router.push("/client");
-      })
-      .catch((error) => toast("error", error));
+    try {
+      await signIn(email, password);
+      toast("successful", "success");
+      router.push("/client");
+    } catch (error) {
+      console.error("SignIn Error:", error); 
+      toast("error", error.response?.data?.message || "An error occurred");
+    }
   };
 
   return (
