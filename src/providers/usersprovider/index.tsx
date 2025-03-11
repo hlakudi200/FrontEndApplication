@@ -42,11 +42,13 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
           trial: response.data.data.trial,
           date: response.data.data.date,
         };
+        console.log(userData);
         dispatch(getCurrentUserSuccess(userData));
       } else {
         dispatch(getCurrentUserError());
       }
-    } catch {
+    } catch(error) {
+      console.log(error)
       dispatch(getCurrentUserError());
     }
   };
