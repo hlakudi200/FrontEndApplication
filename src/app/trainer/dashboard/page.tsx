@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import ClientCard from '@/_components/client-card/client-card';
 import Menu from '@/_components/Menu/menu';
+import withAuth from '@/hoc/withAuth';
 function TrainerDashBoard() {
   return (
     <>
@@ -27,4 +28,4 @@ function TrainerDashBoard() {
   )
 }
 
-export default TrainerDashBoard;
+export default withAuth(TrainerDashBoard,{allowedRoles:['admin','client']});

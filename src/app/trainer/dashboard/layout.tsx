@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import ClientCard from '@/_components/client-card/client-card';
 import Menu from '@/_components/Menu/menu';
+import withAuth from '@/hoc/withAuth';
 const DasboardLayout=()=> {
   return (
     <>
@@ -27,4 +28,4 @@ const DasboardLayout=()=> {
   )
 }
 
-export default DasboardLayout;
+export default withAuth(DasboardLayout,{allowedRoles:['admin','client']});

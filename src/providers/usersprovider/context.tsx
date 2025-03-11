@@ -11,7 +11,7 @@ export interface IUserStateContext {
 
 export interface IUserActionsContext {
   getClients: (idTrainer: string) => Promise<void>;
-  getCurrentUser: () => void;
+  getCurrentUser: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (user: IUser) => Promise<void>;
   signOut: () => void;
