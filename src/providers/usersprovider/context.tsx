@@ -21,6 +21,7 @@ export const INITIAL_STATE: IUserStateContext = {
   isPending: false,
   isSuccess: false,
   isError: false,
+  users:[]
 };
 
 export const UserStateContext = createContext<IUserStateContext>(INITIAL_STATE);

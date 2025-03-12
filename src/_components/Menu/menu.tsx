@@ -9,7 +9,7 @@ type MenuItem = Required<MenuProps>["items"][number];
 
 const items: MenuItem[] = [
   {
-    key: "/landing/markerting/about",
+    key: "/trainer/addfood",
     icon: (
       <AppleFilled
         style={{ fontSize: 30, marginLeft: 100, marginRight: 100 }}
@@ -17,12 +17,12 @@ const items: MenuItem[] = [
     ),
   },
   {
-    key: "/trainer",
+    key: "/trainer/dashboard",
     icon: (
       <HomeFilled style={{ fontSize: 30, marginLeft: 100, marginRight: 100 }} />
     ),
   },
-
+ 
   {
     key: "/landing/markerting/contact",
     icon: (
