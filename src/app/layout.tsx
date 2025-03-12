@@ -6,6 +6,7 @@ import { ConfigProvider, theme } from "antd";
 import React from "react";
 import CustomFooter from "@/_components/footer/footer";
 import { UsersProvider } from "../providers/usersprovider";
+import { FoodProvider } from "@/providers/foodprovider";
 
 export default function RootLayout({
   children,
@@ -58,16 +59,23 @@ export default function RootLayout({
               controlHeight: 49,
               borderRadius: 15,
             },
+            InputNumber: {
+              controlHeight: 48,
+              borderRadius: 15,
+              lineWidth: 2,
+            },
           },
           algorithm: darkAlgorithm,
         }}
       >
         <ToastProvider />
         <UsersProvider>
-          <body>
-            {children}
-            <CustomFooter />
-          </body>
+          <FoodProvider>
+            <body>
+              {children}
+              <CustomFooter />
+            </body>
+          </FoodProvider>
         </UsersProvider>
       </ConfigProvider>
     </html>

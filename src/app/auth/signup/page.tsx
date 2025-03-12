@@ -24,7 +24,7 @@ const SignUp = () => {
   const { signUp } = useUserActions();
   const router = useRouter();
  
-  const handleSignUp = async (values: any) => {
+  const handleSignUp = async (values: IUser) => {
     setLoading(true);
     try {
       const userPayload: IUser = {

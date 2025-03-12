@@ -8,8 +8,8 @@ margin-top: 23px;
 }
 .leftContainerr{
     position:relative;
-    width:30%;
-    display: block;
+    width:35%;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -18,15 +18,19 @@ margin-top: 23px;
 }
 .rightContainer{
     width:30%;
-    display: flex;
+    display:block;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: scroll;
+    height: 90vh;
 }
 .middleContainer{
     width:30%;
-    display: flex;
+    display: block;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content:flex-start;
+    align-items: flex-start;
+    overflow-y: scroll;
+    height: 90vh;
 }

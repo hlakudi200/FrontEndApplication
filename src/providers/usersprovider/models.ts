@@ -42,6 +42,8 @@ export interface IUser {
     sex?: string;
     date?:string;
     __v?:string;
+    fullName?:string;
+    user?:string;
 }
 
 //name

@@ -13,7 +13,7 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useUserActions();
-  const { isPending } = useUserSate();
+  const { isPending,isError,isSuccess} = useUserSate();
   const router = useRouter();
    
   useEffect(()=>{
@@ -21,11 +21,18 @@ const SignIn: React.FC = () => {
   })
   const handleSingIn = async () => {
     try {
+      
       await signIn(email, password);
-      toast("successful", "success")
-      router.push('/trainer')
+     
+      if(isSuccess){
+        toast("Authorized", "success")
+        router.push('/trainer')
+      }
+      if(isError){
+         toast("Erorr,please check your credentials",'error')
+      }
+      
     } catch (error) {
-      console.error("SignIn Error:", error); 
       toast("error", error.response?.data?.message || "An error occurred");
     }
   };

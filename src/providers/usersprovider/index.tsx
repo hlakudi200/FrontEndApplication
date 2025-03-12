@@ -26,49 +26,41 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
   const instance = getAxiosInstace();
 
   const getCurrentUser = async () => {
-    dispatch(getCurrentUserPending());
-    const endpoint = `user/current`;
+    dispatch(getCurrentUserPending());  
+    const endpoint = `user/current`
     try {
       const response = await instance.get(endpoint);
       if (response.status === 200 && response.data) {
-        const userData: IUser = {
-          _id: response.data.data.id,
-          name: response.data.data.name,
-          email: response.data.data.email,
-          role: response.data.data.role,
-          contactNumber: response.data.data.contactNumber,
-          activeState: response.data.data.activeState,
-          planType: response.data.data.planType,
-          trial: response.data.data.trial,
-          date: response.data.data.date,
-        };
-        console.log(userData);
-        dispatch(getCurrentUserSuccess(userData));
+        const userData: IUser = { ...response.data.data };
+        dispatch(getCurrentUserSuccess(userData));  
       } else {
-        dispatch(getCurrentUserError());
+        dispatch(getCurrentUserError());  
       }
-    } catch(error) {
-      console.log(error)
-      dispatch(getCurrentUserError());
+    } catch (error) {
+      console.log(error);
+      dispatch(getCurrentUserError()); 
     }
   };
 
   const getClients = async (idTrainer: string) => {
     dispatch(getClientsPending());
-    const endpoint = `client/trainer/${idTrainer}/clients;`;
+    const endpoint = `client/trainer/${idTrainer}/clients`;
     try {
       const response = await instance.get(endpoint);
-      const filteredData = response.data.map((user: IUser) => ({
-        name: user.name,
+      const filteredData = response.data.data.map((user: IUser) => ({
+        fullName: user.fullName,
         email: user.email,
         contactNumber: user.contactNumber,
         dateOfBirth: user.dateOfBirth,
         sex: user.sex,
         trainerId: user.trainerId,
+        _id:user._id
       }));
+      console.log(filteredData)
       dispatch(getClientsSuccess(filteredData));
-    } catch  {
+    } catch(error) {
       dispatch(getClientsError());
+      console.log("Error message",error)
     }
   };
 
@@ -80,18 +72,18 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       const token = response.data.data.token;
       localStorage.setItem("token", token);
       dispatch(signInSuccess(token));
-    } catch  {
+    } catch {
       dispatch(signInError());
     }
   };
 
   const signUp = async (user: IUser) => {
     dispatch(signUpPending());
-    const endpoint = user.role ? `users/register` : `users/register/mobile;`;
+    const endpoint = user.role ? `users/register` : `users/register/mobile`;
     try {
       await instance.post(endpoint, user);
       dispatch(signUpSuccess(user));
-    } catch  {
+    } catch {
       dispatch(signUpError());
     }
   };
@@ -101,7 +93,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       dispatch(signOutPending());
       localStorage.removeItem("token");
       dispatch(signOutSuccess());
-    } catch  {
+    } catch {
       dispatch(signOutError());
     }
   };
@@ -109,7 +101,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <UserStateContext.Provider value={state}>
       <UserActionContext.Provider
-        value={{getClients, getCurrentUser, signIn, signUp, signOut }}
+        value={{ getClients, getCurrentUser, signIn, signUp, signOut }}
       >
         {children}
       </UserActionContext.Provider>

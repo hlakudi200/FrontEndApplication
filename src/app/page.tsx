@@ -16,7 +16,7 @@ export default function Home() {
       </div>
       <div style={{marginRight:20}}>
         <Button type="primary" onClick={() => router.push("/auth/signin")}>
-          Sing In
+          Sign In
         </Button>
       </div>
     </Flex>

@@ -16,7 +16,7 @@ const Landing= () => {
     },
     {
       title: "Add Food Items.",
-      route: "",
+      route: "/trainer/addfood",
       src: "/images/Tab2.jpg",
     },
     {
@@ -25,7 +25,7 @@ const Landing= () => {
       src: "/images/Tab3.jpg",
     },
     {
-      title: "Calculate Calories.",
+      title: "Meals Advisor.",
       route: "",
       src: "/images/Tab4.jpg",
     },
