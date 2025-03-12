@@ -76,11 +76,12 @@ export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
 
   const createFood = async (food: IFood) => {
     dispatch(createFoodPending());
-    const endpoint = `/Foods`;
+    const endpoint = `/food`;
     await instance
       .post(endpoint, food)
       .then((response) => {
         dispatch(createFoodSuccess(response.data));
+        console.log("FoodItem",response.data)
       })
       .catch((error) => {
         console.error(error);
@@ -88,11 +89,11 @@ export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-  const updateFood = async (Food: IFood) => {
+  const updateFood = async (food: IFood) => {
     dispatch(updateFoodPending());
-    const endpoint = `/Foods/${Food}`;
+    const endpoint = `/Foods/${food}`;
     await instance
-      .put(endpoint, Food)
+      .put(endpoint, food)
       .then((response) => {
         dispatch(updateFoodSuccess(response.data));
       })

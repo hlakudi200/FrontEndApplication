@@ -11,50 +11,63 @@ import {
   Row,
   Col,
   Flex,
+  Spin,
 } from "antd";
-import { useState } from "react";
 
-interface IFood {
-  name: string;
-  protein: number;
-  carbs: number;
-  sugar: number;
-  fat: number;
-  fiber: number;
-  sodium: number;
-  potassium: number;
-  category: string;
-  servingSize: number;
-  cholesterol: number;
-  energy: number;
-}
+import { IFood } from "../../../providers/foodprovider/context";
+import { useFoodActions, useFoodState } from "@/providers/foodprovider";
+import { toast } from "@/providers/ToastProvider/toast";
 
+// interface IFood {
+//   name: string;
+//   protein: number;
+//   carbs: number;
+//   sugar: number;
+//   fat: number;
+//   fiber: number;
+//   sodium: number;
+//   potassium: number;
+//   category: string;
+//   servingSize: number;
+//   cholesterol: number;
+//   energy: number;
+// }
+const { Option } = Select;
 const FoodForm = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const { isPending, isError, isSuccess } = useFoodState();
+  const { createFood } = useFoodActions();
 
   const onFinish = async (values: IFood) => {
-    setLoading(true);
     try {
-      console.log("Submitting: ", values);
-      // Replace with your API call
-      // await axios.post('/api/food', values);
+      console.log("Form Values",values)
+      createFood(values);
     } catch (error) {
       console.error("Error submitting food data:", error);
-    } finally {
-      setLoading(false);
+      toast("Error submitting food data:Please try again!", "error");
+    }
+    if (isSuccess) {
+      toast("Food Item added Succesfuly", "success");
+    }
+    if (isError) {
+      toast("Error submitting food data:Please try again!", "error");
     }
   };
 
   return (
     <>
+      {isPending && (
+        <Flex justify="center" style={{ marginBottom: 20 }}>
+          <Spin size="large" />
+        </Flex>
+      )}
       <div
         style={{
           width: "100%",
           display: "flex",
           flexDirection: "row",
           marginTop: 20,
-          marginBottom:20
+          marginBottom: 20,
         }}
       >
         <div
@@ -91,6 +104,7 @@ const FoodForm = () => {
                 >
                   <InputNumber style={{ width: "100%" }} />
                 </Form.Item>
+
                 <Form.Item
                   label="Carbs (g)"
                   name="carbs"
@@ -130,9 +144,13 @@ const FoodForm = () => {
                   rules={[{ required: true }]}
                 >
                   <Select placeholder="Select category">
-                    <Select.Option value="fruit">Fruit</Select.Option>
-                    <Select.Option value="vegetable">Vegetable</Select.Option>
-                    <Select.Option value="protein">Protein</Select.Option>
+                    
+                    <Option value="veg">Vegies</Option>
+                    <Option value="fruit">Fruits</Option>
+                    <Option value="meat">Meat</Option>
+                    <Option value="grains">Grains</Option>
+                    <Option value="bnl">Bnl</Option>
+                    <Option value="dary">Dary</Option>
                   </Select>
                 </Form.Item>
                 <Form.Item label="Serving Size (g)" name="servingSize">
@@ -148,7 +166,7 @@ const FoodForm = () => {
             </Row>
             <Form.Item>
               <Flex justify="center">
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button type="primary" htmlType="submit">
                   Submit
                 </Button>
               </Flex>
