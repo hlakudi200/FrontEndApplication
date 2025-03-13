@@ -13,7 +13,7 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useUserActions();
-  const { isPending,isError,isSuccess} = useUserSate();
+  const { isPending,isError} = useUserSate();
   const router = useRouter();
    
   useEffect(()=>{
@@ -24,10 +24,10 @@ const SignIn: React.FC = () => {
       
       await signIn(email, password);
      
-      if(isSuccess){
+      
         toast("Authorized", "success")
         router.push('/trainer')
-      }
+     
       if(isError){
          toast("Erorr,please check your credentials",'error')
       }
