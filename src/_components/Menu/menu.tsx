@@ -17,7 +17,7 @@ const items: MenuItem[] = [
     ),
   },
   {
-    key: "/trainer/dashboard",
+    key: "/trainer",
     icon: (
       <HomeFilled style={{ fontSize: 30, marginLeft: 100, marginRight: 100 }} />
     ),
