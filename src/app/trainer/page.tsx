@@ -21,12 +21,12 @@ const Landing= () => {
     },
     {
       title: "Add New Client.",
-      route: "",
+      route: "trainer/addclient",
       src: "/images/Tab3.jpg",
     },
     {
       title: "Meals Advisor.",
-      route: "",
+      route: "trainer/mealagent",
       src: "/images/Tab4.jpg",
     },
   ];
