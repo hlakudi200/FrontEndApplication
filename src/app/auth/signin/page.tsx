@@ -24,10 +24,10 @@ const SignIn: React.FC = () => {
       
       await signIn(email, password);
      
-      if(isSuccess){
+      
         toast("Authorized", "success")
         router.push('/trainer')
-      }
+     
       if(isError){
          toast("Erorr,please check your credentials",'error')
       }
