@@ -25,7 +25,6 @@ export const UserReducer = handleActions<IUserStateContext, IUserStateContext>(
       ...action.payload,
     }),
     [UserActionsEnum.signInError]: (state, action) => {
-      console.log("state, action", state, action);
       return {
         ...state,
         ...action.payload,
@@ -63,7 +62,6 @@ export const UserReducer = handleActions<IUserStateContext, IUserStateContext>(
     }),
 
     [UserActionsEnum.getCurrentUserSuccess]: (state, action) => {
-      console.log("state, action", state, action);
       return {
         ...state,
         ...action.payload,

@@ -22,7 +22,7 @@ const TrainerDashBoard = () => {
 
   const handleCardClick=(clientId:string)=>{
       setUserId(clientId)
-      console.log(UserId)
+      console.log(UserId) //this Id is used to receive the ID of the user clicked
   }
 
   return (

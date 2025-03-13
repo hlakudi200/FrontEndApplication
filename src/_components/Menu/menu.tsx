@@ -38,7 +38,6 @@ const CustomMenu = () => {
   const [current, setCurrent] = useState("/landing/markerting/home");
 
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
     router.push(e.key);
   };

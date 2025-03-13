@@ -40,7 +40,6 @@ const FoodForm = () => {
 
   const onFinish = async (values: IFood) => {
     try {
-      console.log("Form Values",values)
       createFood(values);
     } catch (error) {
       console.error("Error submitting food data:", error);

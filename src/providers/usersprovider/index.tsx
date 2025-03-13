@@ -36,7 +36,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await instance.get(endpoint);
       if (response.status === 200 && response.data) {
         const userData: IUser = { ...response.data.data };
-        console.log("User Data", userData);
+
         dispatch(getCurrentUserSuccess(userData));
       } else {
         dispatch(getCurrentUserError());
@@ -61,7 +61,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
         trainerId: user.trainerId,
         _id: user._id,
       }));
-      console.log(filteredData);
+
       dispatch(getClientsSuccess(filteredData));
     } catch (error) {
       dispatch(getClientsError());
@@ -108,11 +108,9 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
     const endpoint = `/client`;
 
     try {
-      console.log("Client", client);
       const response = await instance.post(endpoint, client);
       if (response.status === 201 && response.data) {
         dispatch(createClientSuccess(response.data.data));
-        console.log("Client", client);
       } else {
         dispatch(createClientError());
         message.error("Failed to create client.");
