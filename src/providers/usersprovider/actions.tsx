@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import { IUser } from "./models";
+import { IClient, IUser } from "./models";
 import { IUserStateContext } from "./context";
 
 export enum UserActionsEnum {
@@ -22,6 +22,11 @@ export enum UserActionsEnum {
   signOutPending = "SIGN_OUT_PENDING",
   signOutSuccess = "SIGN_OUT_SUCCESS",
   signOutError = "SIGN_OUT_ERROR",
+
+  createClientPending = "CREATE_CLIENT_PENDING",
+  createClientSuccess = "CREATE_CLIENT_SUCCESS",
+  createClientError = "CREATE_CLIENT_ERROR",
+
 }
 
 //GET CURRENT USER ACTIONS
@@ -30,13 +35,16 @@ export const getCurrentUserPending = createAction<IUserStateContext>(
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 export const getCurrentUserSuccess = createAction<IUserStateContext, IUser>(
-  UserActionsEnum.getClientsSuccess,
-  (user: IUser) => ({
+  UserActionsEnum.getCurrentUserSuccess,
+  (user: IUser) => {
+    // console.log("UserAction",user)
+    return({
     isPending: false,
     isSuccess: true,
     isError: false,
-    user: user,
-  })
+    user,
+  } )
+}
 );
 export const getCurrentUserError = createAction<IUserStateContext>(
   UserActionsEnum.getclientsError,
@@ -124,4 +132,25 @@ export const signOutSuccess = createAction<IUserStateContext>(
 export const signOutError = createAction<IUserStateContext>(
   UserActionsEnum.signOutError,
   () => ({ isPending: false, isSuccess: false, isError: true })
+);
+
+// CREATE CLIENT ACTIONS
+export const createClientPending = createAction<IUserStateContext>(
+  UserActionsEnum.createClientPending,
+  () => ({ isPending: true, isSuccess: false, isError: false })
+);
+
+export const createClientSuccess = createAction<IUserStateContext, IClient>(
+  UserActionsEnum.createClientSuccess,
+  (client: IClient) => ({
+    isPending: false,
+    isSuccess: true,
+    isError: false,
+    client,
+  })
+);
+
+export const createClientError = createAction<IUserStateContext>(
+  UserActionsEnum.createClientError,
+  () => ({ isPending: false, isSuccess: false, isError: true })
 );

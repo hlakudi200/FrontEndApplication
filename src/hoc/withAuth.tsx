@@ -24,12 +24,14 @@ const withAuth = (WrappedComponent: React.ComponentType,{ allowedRoles = [] }: I
     useEffect(() => {
 
       if (!isChecking && !isPending) {
+    
         if (isError || !isSuccess) {
           router.replace("/");  
         } else if (isSuccess && user?.role) {
-       
+           
           if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
             router.replace(user.role === "admin" ? "/trainer" : "/client");
+      
           }
         }
       }

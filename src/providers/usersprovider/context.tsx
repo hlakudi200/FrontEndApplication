@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IUser } from "./models";
+import { IClient, IUser } from "./models";
 
 export interface IUserStateContext {
   isPending: boolean;
@@ -15,6 +15,9 @@ export interface IUserActionsContext {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (user: IUser) => Promise<void>;
   signOut: () => void;
+  createClient: (client: IClient) => Promise<void>;  
+  client?:IClient;
+
 }
 
 export const INITIAL_STATE: IUserStateContext = {

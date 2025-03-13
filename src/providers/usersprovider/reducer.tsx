@@ -24,10 +24,14 @@ export const UserReducer = handleActions<IUserStateContext, IUserStateContext>(
       ...state,
       ...action.payload,
     }),
-    [UserActionsEnum.signInError]: (state, action) => ({
-      ...state,
-      ...action.payload,
-    }),
+    [UserActionsEnum.signInError]: (state, action) => {
+      console.log("state, action", state, action);
+      return {
+        ...state,
+        ...action.payload,
+      };
+    },
+
     [UserActionsEnum.signUpPending]: (state, action) => ({
       ...state,
       ...action.payload,
@@ -54,17 +58,36 @@ export const UserReducer = handleActions<IUserStateContext, IUserStateContext>(
     }),
 
     [UserActionsEnum.getCurrentUserPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+
+    [UserActionsEnum.getCurrentUserSuccess]: (state, action) => {
+      console.log("state, action", state, action);
+      return {
         ...state,
         ...action.payload,
-      }),
-      [UserActionsEnum.getCurrentUserSuccess]: (state, action) => ({
-        ...state,
-        ...action.payload,
-      }),
-      [UserActionsEnum.getCurrentUserError]: (state, action) => ({
-        ...state,
-        ...action.payload,
-      }),
+      };
+    },
+
+    [UserActionsEnum.getCurrentUserError]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [UserActionsEnum.createClientPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    
+    [UserActionsEnum.createClientSuccess]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    
+    [UserActionsEnum.createClientError]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
   },
   INITIAL_STATE
 );

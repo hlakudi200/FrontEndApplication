@@ -14,17 +14,17 @@ export interface ITrainer {
 }
 
 export interface IClient {
-    name: string;
+    fullName: string;
     email: string;
-    password: string;
-    confirmPassword: string;
-    dateOfBirth: string;
     contactNumber: string;
-    policiesAccepted: boolean;
-    trainerId: string;
+    sex:string;
+    dateOfBirth: string
+    activeState: boolean
+    trainerId: string 
 }
 
 export interface IUser {
+     id?:string,
     _id?:string
     name: string;
     email: string;

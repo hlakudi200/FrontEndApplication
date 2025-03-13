@@ -16,13 +16,7 @@ import {
   getFoodbysearchtermSuccess,
   createFoodPending,
   createFoodError,
-  updateFoodSuccess,
   createFoodSuccess,
-  updateFoodPending,
-  updateFoodError,
-  deleteFoodPending,
-  deleteFoodSuccess,
-  deleteFoodError,
 } from "./actions";
 
 export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
@@ -44,12 +38,11 @@ export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
       dispatch(getFoodsError());
     }
   };
-  //get by serach term
+ 
   const getFoodbysearchterm = async (term: string) => {
-    console.log("Start Fetch");
+
     dispatch(getFoodbysearchtermPending());
     const endpoint = `/food/search/${term}`;
-    console.log("endpoint", endpoint);
     await instance
       .get(endpoint)
       .then((response) => {
@@ -81,7 +74,7 @@ export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
       .post(endpoint, food)
       .then((response) => {
         dispatch(createFoodSuccess(response.data));
-        console.log("FoodItem",response.data)
+       
       })
       .catch((error) => {
         console.error(error);
@@ -89,33 +82,7 @@ export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-  const updateFood = async (food: IFood) => {
-    dispatch(updateFoodPending());
-    const endpoint = `/Foods/${food}`;
-    await instance
-      .put(endpoint, food)
-      .then((response) => {
-        dispatch(updateFoodSuccess(response.data));
-      })
-      .catch((error) => {
-        console.error(error);
-        dispatch(updateFoodError());
-      });
-  };
 
-  const deleteFood = async (id: string) => {
-    dispatch(deleteFoodPending());
-    const endpoint = `https://fakestoreapi.com/Foods/${id}`;
-    await instance
-      .delete(endpoint)
-      .then((response) => {
-        dispatch(deleteFoodSuccess(response.data));
-      })
-      .catch((error) => {
-        console.error(error);
-        dispatch(deleteFoodError());
-      });
-  };
 
   return (
     <FoodStateContext.Provider value={state}>
@@ -125,8 +92,6 @@ export const FoodProvider = ({ children }: { children: React.ReactNode }) => {
           getFoodbysearchterm,
           getFoodbyCatergory,
           createFood,
-          updateFood,
-          deleteFood,
         }}
       >
         {children}

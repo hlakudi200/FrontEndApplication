@@ -1,6 +1,6 @@
 import { getAxiosInstace } from "@/utils/axios-instance";
 import { INITIAL_STATE, UserStateContext, UserActionContext } from "./context";
-import { IUser } from "./models";
+import { IClient, IUser } from "./models";
 import { UserReducer } from "./reducer";
 import { useContext, useReducer } from "react";
 import {
@@ -19,26 +19,31 @@ import {
   getCurrentUserPending,
   getCurrentUserSuccess,
   getCurrentUserError,
+  createClientPending,
+  createClientSuccess,
+  createClientError,
 } from "./actions";
+import { message } from "antd";
 
 export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
   const getCurrentUser = async () => {
-    dispatch(getCurrentUserPending());  
-    const endpoint = `user/current`
+    dispatch(getCurrentUserPending());
+    const endpoint = `user/current`;
     try {
       const response = await instance.get(endpoint);
       if (response.status === 200 && response.data) {
         const userData: IUser = { ...response.data.data };
-        dispatch(getCurrentUserSuccess(userData));  
+        console.log("User Data", userData);
+        dispatch(getCurrentUserSuccess(userData));
       } else {
-        dispatch(getCurrentUserError());  
+        dispatch(getCurrentUserError());
       }
     } catch (error) {
       console.log(error);
-      dispatch(getCurrentUserError()); 
+      dispatch(getCurrentUserError());
     }
   };
 
@@ -54,13 +59,13 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
         dateOfBirth: user.dateOfBirth,
         sex: user.sex,
         trainerId: user.trainerId,
-        _id:user._id
+        _id: user._id,
       }));
-      console.log(filteredData)
+      console.log(filteredData);
       dispatch(getClientsSuccess(filteredData));
-    } catch(error) {
+    } catch (error) {
       dispatch(getClientsError());
-      console.log("Error message",error)
+      console.log("Error message", error);
     }
   };
 
@@ -71,6 +76,7 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await instance.post(endpoint, { email, password });
       const token = response.data.data.token;
       localStorage.setItem("token", token);
+      getCurrentUser();
       dispatch(signInSuccess(token));
     } catch {
       dispatch(signInError());
@@ -97,11 +103,36 @@ export const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       dispatch(signOutError());
     }
   };
+  const createClient = async (client: IClient) => {
+    dispatch(createClientPending());
+    const endpoint = `/client`;
 
+    try {
+      console.log("Client", client);
+      const response = await instance.post(endpoint, client);
+      if (response.status === 201 && response.data) {
+        dispatch(createClientSuccess(response.data.data));
+        console.log("Client", client);
+      } else {
+        dispatch(createClientError());
+        message.error("Failed to create client.");
+      }
+    } catch (error) {
+      dispatch(createClientError());
+      console.log(error);
+    }
+  };
   return (
     <UserStateContext.Provider value={state}>
       <UserActionContext.Provider
-        value={{ getClients, getCurrentUser, signIn, signUp, signOut }}
+        value={{
+          getClients,
+          getCurrentUser,
+          signIn,
+          signUp,
+          signOut,
+          createClient,
+        }}
       >
         {children}
       </UserActionContext.Provider>
