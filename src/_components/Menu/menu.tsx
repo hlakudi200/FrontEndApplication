@@ -24,7 +24,7 @@ const items: MenuItem[] = [
   },
  
   {
-    key: "/landing/markerting/contact",
+    key: "/trainer/addclient",
     icon: (
       <UserAddOutlined
         style={{ fontSize: 30, marginLeft: 100, marginRight: 100 }}

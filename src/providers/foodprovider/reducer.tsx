@@ -42,28 +42,5 @@ export const FoodReducer = handleActions<IFoodStateContext, IFoodStateContext>({
         ...state,
         ...action.payload,
     }),
-    [FoodActionEnums.updateFoodPending]: (state, action) => ({
-        ...state,
-        ...action.payload,
-    }),
-    [FoodActionEnums.updateFoodSuccess]: (state, action) => ({
-        ...state,
-        ...action.payload,
-    }),
-    [FoodActionEnums.updateFoodError]: (state, action) => ({
-        ...state,
-        ...action.payload,
-    }),
-    [FoodActionEnums.deleteFoodPending]: (state, action) => ({
-        ...state,
-        ...action.payload,
-    }),
-    [FoodActionEnums.deleteFoodSuccess]: (state, action) => ({
-        ...state,
-        ...action.payload,
-    }),
-    [FoodActionEnums.deleteFoodError]: (state, action) => ({
-        ...state,
-        ...action.payload,
-    }),
+   
 }, INITIAL_STATE );

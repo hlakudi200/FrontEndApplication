@@ -23,13 +23,6 @@ export enum FoodActionEnums {
   createFoodSuccess = "CREATE_FOOD_SUCCESS",
   createFoodError = "CREATE_FOOD_ERROR",
 
-  updateFoodPending = "UPDATE_FOOD_PENDING",
-  updateFoodSuccess = "UPDATE_FOOD_SUCCESS",
-  updateFoodError = "UPDATE_FOOD_ERROR",
-
-  deleteFoodPending = "DELETE_FOOD_PENDING",
-  deleteFoodSuccess = "DELETE_FOOD_SUCCESS",
-  deleteFoodError = "DELETE_FOOD_ERROR",
 }
 
 // createAction<PayloadType>(actionType, payloadCreator)
@@ -66,8 +59,7 @@ export const getFoodsError = createAction<IFoodStateContext>(
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
 
-// Single Food Actions
-// Similar pattern: each action updates the state to reflect the operation status
+
 export const getFoodbysearchtermPending = createAction<IFoodStateContext>(
   FoodActionEnums.getFoodbysearchtermPending,
   () => ({ isPending: true, isSuccess: false, isError: false })
@@ -129,42 +121,5 @@ export const createFoodError = createAction<IFoodStateContext>(
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
 
-export const updateFoodPending = createAction<IFoodStateContext>(
-  FoodActionEnums.updateFoodPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
 
-export const updateFoodSuccess = createAction<IFoodStateContext, IFood>(
-  FoodActionEnums.updateFoodSuccess,
-  (food: IFood) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    food,
-  })
-);
 
-export const updateFoodError = createAction<IFoodStateContext>(
-  FoodActionEnums.updateFoodError,
-  () => ({ isPending: false, isSuccess: false, isError: true })
-);
-
-export const deleteFoodPending = createAction<IFoodStateContext>(
-  FoodActionEnums.deleteFoodPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
-
-export const deleteFoodSuccess = createAction<IFoodStateContext, IFood>(
-  FoodActionEnums.deleteFoodSuccess,
-  (food: IFood) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    food,
-  })
-);
-
-export const deleteFoodError = createAction<IFoodStateContext>(
-  FoodActionEnums.deleteFoodError,
-  () => ({ isPending: false, isSuccess: false, isError: true })
-);

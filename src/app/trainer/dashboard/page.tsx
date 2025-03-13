@@ -1,21 +1,29 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles/styles.module.css";
 import ClientCard from "@/_components/client-card/client-card";
 import Menu from "@/_components/Menu/menu";
 import Card from "antd/es/card/Card";
-import { Flex, Form, Input, Spin } from "antd";
-import { MailFilled } from "@ant-design/icons";
+import { Flex, Spin } from "antd";
+
 import { useUserActions, useUserSate } from "@/providers/usersprovider";
+import MealPlanForm from '../../../_components/meal-plan-form/mealplanform'
 
 const TrainerDashBoard = () => {
-  const { users = [], isPending, isSuccess,} = useUserSate();
+  const { users = [], isPending, isSuccess, user } = useUserSate();
   const { getClients } = useUserActions();
+  const [UserId, setUserId] = useState("");
 
   useEffect(() => {
-    getClients("67caa1c7f4836400195da168");
+    getClients(user.id);
   }, []);
+
+
+  const handleCardClick=(clientId:string)=>{
+      setUserId(clientId)
+      console.log(UserId)
+  }
 
   return (
     <>
@@ -24,11 +32,13 @@ const TrainerDashBoard = () => {
           {users.length > 0 && isSuccess
             ? users.map((client) => (
                 <ClientCard
-                  key={client.user}
+                  key={client._id}
                   clientName={client.fullName}
                   clientEmail={client.email}
                   clientContactNo={client.contactNumber}
                   imageSrc="/images/user.png"
+                  _id={client._id}
+                  onClick={handleCardClick}
                 />
               ))
             : isPending && (
@@ -69,19 +79,7 @@ const TrainerDashBoard = () => {
           </Card>
         </div>
         <div className={styles.middleContainer}>
-          <Form
-            style={{
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Form.Item name="email" rules={[{ required: true }]}>
-              <Input placeholder="Email" suffix={<MailFilled />} />
-            </Form.Item>
-          </Form>
+          <MealPlanForm />
         </div>
       </div>
       <Menu />
